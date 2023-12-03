@@ -15,7 +15,52 @@ use Laravel\Sanctum\HasApiTokens;
 class AuthController extends Controller
 {
     /**
-     * login any user.
+     * @OA\Post(
+     *      path="/api/login",
+     *      operationId="login",
+     *      tags={"Auth"},
+     *      summary="login",
+     *      description="login",
+     *      @OA\RequestBody(
+     *      required=true,
+     *      description="connexion d'un utilisateur",
+     *
+     *      @OA\MediaType(
+     *            mediaType="multipart/form-data",
+     *            @OA\Schema(
+     *               type="object",
+     *       @OA\Property(property="email", type="string", format="email", example="exmple@exemple.com", description ="votre email"),
+     *       @OA\Property(property="password", type="string", format="string", example="jdjfk3237&$#", description ="votre motde passe"),
+     *  )
+     *        ),
+     *      ),
+     *       @OA\Response(
+     *      response=201,
+     *      description="Success response",
+     *      @OA\JsonContent(
+     *      @OA\Property(property="status", type="number", example="200"),
+     *      @OA\Property(property="message", type="string", example="Connexion effectuée"),
+     *        )
+     *     ),
+     *        @OA\Response(
+     *      response=400,
+     *      description="Bad Request",
+     *      @OA\JsonContent(
+     *      @OA\Property(property="status", type="number", example="400"),
+     *      @OA\Property(property="message", type="string", example="Erreur lors du traitement de la demande")
+     *        )
+     *     ),
+     * @OA\Response(
+     *      response=500,
+     *      description="Bad Request",
+     *      @OA\JsonContent(
+     *      @OA\Property(property="status", type="number", example="500"),
+     *      @OA\Property(property="message", type="string", example="Erreur de connexion")
+     *        )
+     *     )
+     * )
+     *      
+     * )
      */
     public function login(AuthRequest $request)
     {
@@ -65,7 +110,62 @@ class AuthController extends Controller
 
 
     /**
-     * login any user.
+     * @OA\Post(
+     *      path="/api/loginCode/{user}",
+     *      operationId="loginWithCode",
+     *      tags={"Auth"},
+     *      summary="login",
+     *      description="login",
+     *  @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      required=true,
+     *      description= "user id",
+     *      example="10",
+     *      @OA\Schema(
+     *           type="integer"
+     *      )
+     * ),
+     *      @OA\RequestBody(
+     *      required=true,
+     *      description="connexion d'un utilisateur",
+     *
+     *      @OA\MediaType(
+     *            mediaType="multipart/form-data",
+     *            @OA\Schema(
+     *               type="object",
+     *       @OA\Property(property="email", type="string", format="email", example="exmple@exemple.com", description ="votre email"),
+     *       @OA\Property(property="password", type="string", format="string", example="jdjfk3237&$#", description ="votre motde passe"),
+     *  )
+     *        ),
+     *      ),
+     *       @OA\Response(
+     *      response=201,
+     *      description="Success response",
+     *      @OA\JsonContent(
+     *      @OA\Property(property="status", type="number", example="200"),
+     *      @OA\Property(property="message", type="string", example="Connexion effectuée"),
+     *        )
+     *     ),
+     *        @OA\Response(
+     *      response=400,
+     *      description="Bad Request",
+     *      @OA\JsonContent(
+     *      @OA\Property(property="status", type="number", example="400"),
+     *      @OA\Property(property="message", type="string", example="Erreur lors du traitement de la demande")
+     *        )
+     *     ),
+     * @OA\Response(
+     *      response=500,
+     *      description="Bad Request",
+     *      @OA\JsonContent(
+     *      @OA\Property(property="status", type="number", example="500"),
+     *      @OA\Property(property="message", type="string", example="Erreur de connexion")
+     *        )
+     *     )
+     * )
+     *      
+     * )
      */
     public function loginWithCode(AuthRequest $request, User $user)
     {
@@ -96,7 +196,55 @@ class AuthController extends Controller
 
 
     /**
-     * login any user.
+     * @OA\Post(
+     *      path="/api/logout/{user}",
+     *      operationId="logout",
+     *      tags={"Auth"},
+     *      summary="logout of user",
+     *      description="logout",
+     *  @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      required=true,
+     *      description= "user id",
+     *      example="10",
+     *      @OA\Schema(
+     *           type="integer"
+     *      )
+     *      ),
+     *  @OA\RequestBody(
+     *      required=true,
+     *      description="déconnexion d'un utilisateur",
+     *
+     * 
+     *      ),
+     *       @OA\Response(
+     *      response=201,
+     *      description="Success response",
+     *      @OA\JsonContent(
+     *      @OA\Property(property="status", type="number", example="200"),
+     *      @OA\Property(property="message", type="string", example="deconnexion effectuée"),
+     *        )
+     *     ),
+     *        @OA\Response(
+     *      response=400,
+     *      description="Bad Request",
+     *      @OA\JsonContent(
+     *      @OA\Property(property="status", type="number", example="400"),
+     *      @OA\Property(property="message", type="string", example="Erreur lors du traitement de la demande")
+     *        )
+     *     ),
+     * @OA\Response(
+     *      response=500,
+     *      description="Bad Request",
+     *      @OA\JsonContent(
+     *      @OA\Property(property="status", type="number", example="500"),
+     *      @OA\Property(property="message", type="string", example="Erreur de connexion")
+     *        )
+     *     )
+     * )
+     *      
+     * )
      */
     public function logout(Request $request, User $user)
     {
@@ -115,19 +263,4 @@ class AuthController extends Controller
     }
 
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
