@@ -7,9 +7,9 @@ use Carbon\Carbon;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 
-class UserService
-{
+class UserService {
 
 
     /**
@@ -20,8 +20,7 @@ class UserService
      * 
      * @return string The newly created data of the user
      */
-    public function store(array $input)
-    {
+    public function store(array $input) {
 
         $input['password'] = Hash::make($input['password']);
 
@@ -44,12 +43,11 @@ class UserService
      * 
      * @return string The newly created identifiant of the user
      */
-    public function createIdentifiants(int $id)
-    {
+    public function createIdentifiants(int $id) {
 
         $random = random_int(100000000, 999999999);
 
-        $identifiant = "33" . $random;
+        $identifiant = "33".$random;
 
         $user = User::findOrFail($id);
 
@@ -57,7 +55,7 @@ class UserService
 
         $upUser = $user->update();
 
-        if ($upUser) {
+        if($upUser) {
             return view('notificationIdentifiant', ['identifiant' => $identifiant]);
         } else {
 
@@ -74,8 +72,7 @@ class UserService
      * 
      * @return array
      */
-    public function show(User $user): array
-    {
+    public function show(User $user): array {
         return [
             'user' => $user
         ];
@@ -95,7 +92,7 @@ class UserService
 
         $user = User::email($data['email'])->get();
 
-        if (isset($user)) {
+        if(isset($user)) {
 
             $email = $user[0]->email;
 
@@ -130,10 +127,9 @@ class UserService
      * 
      * @param User $user user
      */
-    public function checkVerificationCode(array $input, User $user)
-    {
+    public function checkVerificationCode(array $input, User $user) {
 
-        if ($input['validation'] == $user->validation) {
+        if($input['validation'] == $user->validation) {
 
             $user->email_verified_at = Carbon::now();
 
@@ -155,30 +151,13 @@ class UserService
      * 
      * @return void
      */
-    public function update($dataToUpdate, $user)
-    {
+    public function update($dataToUpdate, $user) {
+        if(isset($dataToUpdate['password'])) {
 
-        $user->update($dataToUpdate);
-    }
-
-
-    /**
-     * Update a user
-     * 
-     * @param User $user the a user who updates his data
-     * @param array $input The user data
-     * 
-     */
-    public function updatePasswordOrCode($dataToUpdate, $user)
-    {
-
-        if (isset($dataToUpdate['password'])) {
             $dataToUpdate['password'] = Hash::make($dataToUpdate['password']);
         }
 
         $user->update($dataToUpdate);
-
-        return response()->json([], 204);
     }
 
 
@@ -190,8 +169,7 @@ class UserService
      * 
      * @return array
      */
-    public function uploadAvatar(UploadedFile $avatarFile)
-    {
+    public function uploadAvatar(UploadedFile $avatarFile) {
 
         $avatarPath = $avatarFile->store('users/avatar', 'public');
 
@@ -209,8 +187,7 @@ class UserService
      * 
      * @return void
      */
-    public function delete($userToDelete)
-    {
+    public function delete($userToDelete) {
         $userToDelete->delete();
     }
 }

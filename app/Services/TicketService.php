@@ -64,9 +64,7 @@ class TicketService
     public function show(Ticket $ticket): array
     {
         return [
-            'article' => $ticket->articles,
-            'ticket' => $ticket->getAttributes()
-
+            'ticket' => $ticket,
         ];
     }
 

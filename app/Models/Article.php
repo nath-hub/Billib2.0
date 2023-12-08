@@ -49,4 +49,8 @@ class Article extends Model
 
         return $query->where('user_id', $user_id);
     }
+
+    public function scopeArticle($query, $user_id, $ticket_id){
+        return $query->where('user_id', $user_id)->where('ticket_id', $ticket_id);
+    }
 }

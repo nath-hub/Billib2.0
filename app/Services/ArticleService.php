@@ -22,6 +22,16 @@ class ArticleService
         ];
     }
 
+    public function showTicketArticle($user, $ticket){
+        
+        $article = Article::article($user->id, $ticket->id)->get(); 
+
+        return [
+            'article' => $article,
+            'ticket' => $ticket
+        ];
+    }
+
 
 
     /**

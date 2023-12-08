@@ -52,17 +52,10 @@ class UserRequest extends FormRequest
                 ];
             }
         } elseif ($verb === 'PUT') {
-
-            if($routeName === 'update.password'){
-                return [
-                    'password' => 'sometimes|required|string',
-                    'code' => 'sometimes|required|string',
-                ];
-            }
             return [
                 'name' => 'sometimes|required|string',
-                'email' => 'sometimes|required|email|unique:users',
                 'code' => 'sometimes|required|string',
+                'password' => 'sometimes|required|string',
                 'code_postal' => 'sometimes|required|string',
                 'avatar' => 'sometimes|required|string',
             ];

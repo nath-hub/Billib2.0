@@ -7,10 +7,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Session;
-use Laravel\Sanctum\HasApiTokens;
-
 
 class AuthController extends Controller
 {
@@ -81,7 +77,7 @@ class AuthController extends Controller
             if ($user->identifiant === null) {
                 return response()->json([
                     'code' => 400,
-                    'message' => 'veillew valider votre adresse mail'
+                    'message' => 'veillez valider votre adresse mail'
                 ], 400);
             } else {
                 $token = $user->createToken('API TOKEN');
@@ -172,7 +168,7 @@ class AuthController extends Controller
 
         $data = $request->validated();
 
-        if ($user->codde === $data) {
+        if ($data['code'] === $user->code) {
 
             $token = $user->createToken('API TOKEN');
 
@@ -185,13 +181,22 @@ class AuthController extends Controller
                         'access_token' => $token->plainTextToken
                     ]
                 ]
-            ]);
-        } else {
+            ], 200);
+
+        } elseif($user->code === null) {
+
+            $user->update($data);
+
             return response()->json([
-                'code' => 400,
-                'data' => 'code incorrect'
-            ], 400);
+                'code' => 200,
+                'data' =>'bien creee!'
+            ]);
         }
+
+        return response()->json([
+            'code' => 400,
+            'data' => 'code incorrect'
+        ], 400);
     }
 
 

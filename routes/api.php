@@ -29,6 +29,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('login', [AuthController::class, 'login'])->name('users.login');
 
+Route::post('loginCode/{user}', [AuthController::class, 'loginWithCode'])->name('users.code');
+
+Route::post('logout/{user}', [AuthController::class, 'logout'])->name('users.logout')->middleware('auth:sanctum');
+
+
+
 Route::apiResource('users', UserController::class);
 
 Route::get('/notification/identifiant/{id}', [UserController::class, 'createIdentifiant']);
@@ -37,15 +43,8 @@ Route::post('/check/email', [UserController::class, 'checkEmail'])->name('check.
 
 Route::post('/check/validation/email/{user}', [UserController::class, 'checkVerificationCode'])->name('validation.email');
 
-Route::post('/recover/identifiant', [UserController::class, 'recoverIdentifiant'])->name('recover.identifiant');
+Route::post('/uploadFile/{id}', [UserController::class, 'uploadAvatar'])->name('users.avatar')->middleware('auth:sanctum');;
 
-Route::post('/uploadFile/{id}', [UserController::class, 'uploadAvatar']);
-
-Route::put('/update/password/{id}', [UserController::class, 'updatePasswordOrCode'])->name('update.password')->middleware('auth:sanctum');
-
-Route::post('loginCode/{user}', [AuthController::class, 'loginWithCode'])->name('users.code');
-
-Route::post('logout/{user}', [AuthController::class, 'logout'])->name('users.logout')->middleware('auth:sanctum');
 
 
     /*
@@ -53,8 +52,7 @@ Route::post('logout/{user}', [AuthController::class, 'logout'])->name('users.log
     | tickets
     |--------------------------------------------------------------------------
     */
-
-Route::get('api', [ArticleController::class, 'documentation']);
+    //selectionner les tickets et les articles d'un utilisateur.
     
 Route::apiResource('tickets', TicketController::class)->middleware('auth:sanctum');
 
@@ -70,4 +68,6 @@ Route::get('/articles/users/{user}', [ArticleController::class, 'showByUser'])->
 
 Route::get('/articles/prices/{user}', [ArticleController::class, 'showByPrice'])->middleware('auth:sanctum');
 
-Route::post('/filters/{user}', [TicketController::class, 'filter'])->name('filter')->middleware('auth:sanctum');
+Route::get('/articles/{user}/{ticket}', [ArticleController::class, 'showTicketArticle'])->middleware('auth:sanctum');
+
+Route::post('/filters/{user}', [TicketController::class, 'filter'])->name('filter')->middleware('auth:sanctum'); 

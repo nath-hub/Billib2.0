@@ -173,6 +173,11 @@ class UserController extends Controller
      *        
      * )
      *     ),
+     * 
+     * *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
      *    @OA\Response(
      *      response=400,
      *      description="Bad Request",
@@ -194,8 +199,8 @@ class UserController extends Controller
      * )
      */
     public function uploadAvatar(UserRequest $request)
-    {
-        $data = UserService::uploadAvatar($request->file('avatar_file'));
+    { 
+        $data = UserService::uploadAvatar($request->file('avatar'));
 
         return response()->json($data, 200);
     }
@@ -435,76 +440,8 @@ class UserController extends Controller
 
         return response()->json([
             'message' => 'users successfull update'
-        ], 202);
+        ], 200);
     }
-
-
-
-
-    /**
-     * @OA\Put(
-     *      path="/api/update/password/{id}",
-     *      operationId="updatePasswordOrCode",
-     *      tags={"User"},
-     *      summary="update password or code",
-     *      description="update password or code",
-     *   @OA\Parameter(
-     *      name="id",
-     *      in="path",
-     *      required=true,
-     *      description= "user id",
-     *      example="10",
-     *      @OA\Schema(
-     *           type="integer"
-     *      )
-     * ),
-     *      @OA\RequestBody(
-     *      required=true,
-     *      description="modification du mot de passe d'un utilisateur",
-     *
-     *      @OA\MediaType(
-     *            mediaType="multipart/form-data",
-     *            @OA\Schema(
-     *               type="object",
-     *    @OA\Property(property="email", type="string", format="string", example="examples@gmail.com", description ="votre email"),
-     *  )
-     *        ),
-     *      ),
-     *       @OA\Response(
-     *      response=201,
-     *      description="Success response",
-     *      @OA\JsonContent(
-     *      @OA\Property(property="status", type="number", example="200"),
-     *      @OA\Property(property="message", type="string", example="modification du mot de passe."),
-     *        )
-     *     ),
-     *        @OA\Response(
-     *      response=400,
-     *      description="Bad Request",
-     *      @OA\JsonContent(
-     *      @OA\Property(property="status", type="number", example="400"),
-     *      @OA\Property(property="message", type="string", example="Erreur lors du traitement de la demande")
-     *        )
-     *     ),
-     * @OA\Response(
-     *      response=500,
-     *      description="Bad Request",
-     *      @OA\JsonContent(
-     *      @OA\Property(property="status", type="number", example="500"),
-     *      @OA\Property(property="message", type="string", example="Erreur de connexion")
-     *        )
-     *     )
-     * )
-     *      
-     * )
-     */
-    public function updatePasswordOrCode(UserRequest $request, User $user)
-    {
-        $input = $request->validated();
-
-        return UserService::updatePasswordOrCode($input, $user);
-    }
-
 
 
     /**

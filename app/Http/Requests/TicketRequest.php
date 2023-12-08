@@ -49,18 +49,18 @@ class TicketRequest extends FormRequest
                     'tva' => 'required',
                     'number_ticket' => 'required|unique:tickets',
                     'datas' => [
-                        'name_article' => 'required',
-                        'quantity' => 'required',
-                        'unity_price' => 'required',
-                        'total' => 'required',
-                        'notice' => 'required',
-                        'notice_doc' => 'required',
-                        'garantie' => 'required',
-                        'tuto' => 'required',
-                        'reparation' => 'required',
-                        'other_model' => 'required',
-                        'revente' => 'required',
-                        'categories' => 'required'
+                        "name_article" => "required",
+                        "quantity" => "required",
+                        "unity_price" => "required",
+                        "total" => "required",
+                        "notice" => "required",
+                        "notice_doc" => "required",
+                        "garantie" => "required",
+                        "tuto" => "required",
+                        "reparation" => "required",
+                        "other_model" => "required",
+                        "revente" => "required",
+                        "categories" => "required"
                     ],
 
                 ];
