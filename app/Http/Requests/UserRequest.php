@@ -44,6 +44,7 @@ class UserRequest extends FormRequest
                 ];
             }elseif($routeName === 'validation.email'){
                 return [
+                    'email' => 'required|email',
                     'validation' => 'required|integer'
                 ];
             }elseif($routeName === 'check.email' || 'recover.identifiant'){

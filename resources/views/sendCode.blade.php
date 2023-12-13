@@ -87,12 +87,12 @@
       <h1>CONFIRMATION DE L'ADRESSE E-MAIL </h1>
 
       <div class="hello">
-        Hello. Veuillez cliquer sur le bouton ci-dessous pour activer votre compte sur <strong> Bill'lib</strong>
+        Hello. Veuillez recupéré le code ci-dessous et le mettre dans la prochaine étape pour vérifier votre email sur <strong> Bill'lib</strong>
       </div>
       <p style="display:none">{{$verify}}</p>
 
       <div class="button">
-        <button id="but"><a href='http://billib.fr/api/notification/identifiant/{{$verify}}'>Valider mon compte </a> </button>
+        <button id="but"><a href='#'>{{$verify}}</a> </button>
       </div>
 
 

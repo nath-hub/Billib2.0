@@ -25,7 +25,7 @@ class AuthController extends Controller
      *            mediaType="multipart/form-data",
      *            @OA\Schema(
      *               type="object",
-     *       @OA\Property(property="email", type="string", format="email", example="exmple@exemple.com", description ="votre email"),
+     *       @OA\Property(property="data", type="string", format="email", example="exmple@exemple.com", description ="votre email"),
      *       @OA\Property(property="password", type="string", format="string", example="jdjfk3237&$#", description ="votre motde passe"),
      *  )
      *        ),
@@ -91,10 +91,14 @@ class AuthController extends Controller
                             'access_token' => $token->plainTextToken
                         ],
                         'user' => [
-                            'name' => $user->name,
+                            'id' => $user->id,
+                          	'name' => $user->name,
                             'email' => $user->email,
-                            'code postal' => $user->code_postal,
-                            'avatar_url' => asset($user->avatar),
+                            'code' => $user->code,
+                            'update_at' => $user->updated_at,
+                            'identifiant' => $user->identifiant,
+                            'code_postal' => $user->code_postal,
+                            'avatar' => asset($user->avatar),
                         ]
                     ]
                 ]);
@@ -178,7 +182,8 @@ class AuthController extends Controller
                     'token' => [
                         'type' => 'Bearer',
                         'expires_at' =>  Carbon::parse($token->accessToken->expires_at),
-                        'access_token' => $token->plainTextToken
+                        'access_token' => $token->plainTextToken,
+                      	'id' => $user->id
                     ]
                 ]
             ], 200);

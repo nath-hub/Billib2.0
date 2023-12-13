@@ -41,9 +41,9 @@ Route::get('/notification/identifiant/{id}', [UserController::class, 'createIden
 
 Route::post('/check/email', [UserController::class, 'checkEmail'])->name('check.email');
 
-Route::post('/check/validation/email/{user}', [UserController::class, 'checkVerificationCode'])->name('validation.email');
+Route::post('/check/validation/email', [UserController::class, 'checkVerificationCode'])->name('validation.email');
 
-Route::post('/uploadFile/{id}', [UserController::class, 'uploadAvatar'])->name('users.avatar')->middleware('auth:sanctum');;
+Route::post('/uploadFile', [UserController::class, 'uploadAvatar'])->name('users.avatar')->middleware('auth:sanctum');;
 
 
 

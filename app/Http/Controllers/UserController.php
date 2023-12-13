@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use App\Services\Facades\UserFacade as UserService;
-
+use Auth;
 
 /**
  *
@@ -200,7 +200,9 @@ class UserController extends Controller
      */
     public function uploadAvatar(UserRequest $request)
     { 
-        $data = UserService::uploadAvatar($request->file('avatar'));
+       $user=  Auth::user();
+
+        $data = UserService::uploadAvatar($request->file('avatar'), $user);
 
         return response()->json($data, 200);
     }
@@ -375,12 +377,12 @@ class UserController extends Controller
      *      
      * )
      */
-    public function checkVerificationCode(UserRequest $request, User $user)
+    public function checkVerificationCode(UserRequest $request)
     {
 
         $input = $request->validated();
 
-        return UserService::checkVerificationCode($input, $user);
+        return UserService::checkVerificationCode($input);
     }
 
 
