@@ -574,7 +574,7 @@
                         "multipart/form-data": {
                             "schema": {
                                 "properties": {
-                                    "email": {
+                                    "data": {
                                         "description": "votre email",
                                         "type": "string",
                                         "format": "email",

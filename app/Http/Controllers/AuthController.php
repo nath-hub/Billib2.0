@@ -98,7 +98,7 @@ class AuthController extends Controller
                             'update_at' => $user->updated_at,
                             'identifiant' => $user->identifiant,
                             'code_postal' => $user->code_postal,
-                            'avatar' => asset($user->avatar),
+                            'avatar' => $user->avatar,
                         ]
                     ]
                 ]);

@@ -185,18 +185,14 @@ class UserService
      */
     public function uploadAvatar(UploadedFile $avatarFile, $user)
     {
-        $fileName = uniqid() . '.' . $avatarFile->getClientOriginalExtension();
+        $avatarPath = $avatarFile->store('users/avatar', 'public');
 
-        $avatarFile->storeAs('public/avatar', $fileName);
+        $user->avatar = asset('/storage/' . $avatarPath);
 
-        //$avatarPath = $avatarFile->store('users/avatar', 'public');
-
-        // $user->avatar = asset($avatarPath);
-
-        // $user->update();
+        $user->update();
 
         return [
-            asset($fileName)
+            asset('/storage/' . $avatarPath)
         ];
     }
 
