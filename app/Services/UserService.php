@@ -60,6 +60,11 @@ class UserService
 
         $upUser = $user->update();
 
+        Mail::send('notificationIdentifiant', ['identifiant' => $identifiant], function ($message) use ($user) {
+            $message->to($user->email);
+            $message->subject("E-mail de félicitation");
+        });
+
         if ($upUser) {
             return view('notificationIdentifiant', ['identifiant' => $identifiant]);
         } else {
