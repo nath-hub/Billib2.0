@@ -6,6 +6,7 @@ use App\Http\Requests\UserRequest;
 use App\Models\User;
 use App\Services\Facades\UserFacade as UserService;
 use Auth;
+use Illuminate\Support\Facades\Log;
 
 /**
  *
@@ -78,10 +79,14 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
+
+        Log::warning('User is trying to create a single account', ['data' => $request->except('password')]);
         $input = $request->validated();
 
         $data = UserService::store($input);
 
+        Log::info('User create a single todo successfully', ['todo' => $data]);
+        
         return response()->json([
             'code' => 201,
             'data' => $data
@@ -138,7 +143,7 @@ class UserController extends Controller
     public function createIdentifiant($id)
     {
         $data = UserService::createIdentifiants($id);
-
+        Log::warning('User is accessing all the Todos', ['user' => Auth::user()->id]);
         return $data;
     }
 
@@ -258,7 +263,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         $data = UserService::show($user);
-
+        Log::warning('User veux acceder a ses infos', ['user' => Auth::user()]);
         return response()->json([
             'code' => 200,
             'data' => $data

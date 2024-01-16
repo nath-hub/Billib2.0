@@ -70,8 +70,12 @@ return [
             'path' => storage_path('logs/laravel.log'),
             'level' => env('LOG_LEVEL', 'debug'),
             'days' => 14,
+            //'formatter' => MonologFormatterHtmlFormatter::class,
             'replace_placeholders' => true,
-        ],
+            'formatter_with' => [
+              'dateFormat' => 'Y-m-d',
+            ]
+          ],
 
         'slack' => [
             'driver' => 'slack',

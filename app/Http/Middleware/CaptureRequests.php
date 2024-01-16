@@ -15,9 +15,9 @@ class CaptureRequests
      */
     public function handle(Request $request, Closure $next): Response
     {
-        dd($next($request));
+       return ($next($request));
 
-        return response()->json(['message' => "Request bien capturee"]);
+        //return response()->json(['message' => "Request bien capturee"]);
 
     }
 }

@@ -19,7 +19,7 @@ use Illuminate\Http\Request;
 
 Route::group(['middleware'=>'CaptureRequest'], function (){
     
-    Route::apiResource('users', UserController::class);
+    
 
 });
 
@@ -34,8 +34,6 @@ Route::post('login', [AuthController::class, 'login'])->name('users.login');
 Route::post('loginCode/{user}', [AuthController::class, 'loginWithCode'])->name('users.code');
 
 Route::post('logout/{user}', [AuthController::class, 'logout'])->name('users.logout')->middleware('auth:sanctum');
-
-
 
 Route::apiResource('users', UserController::class);
 
